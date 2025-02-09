@@ -50,10 +50,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
     <div className={styles.card} onClick={onClick}>
       <div className={styles.thumbnailWrapper}>
-        <img
+        <Image
           src={project.thumbnail}
           alt={project.title}
           className={styles.thumbnail}
+          width={300}
+          height={150}
         />
       </div>
       <div className={styles.content}>

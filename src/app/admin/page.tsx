@@ -135,10 +135,21 @@ export default function AdminPage() {
         
         const newProjects = rows.slice(1)
           .map(row => {
-            const project: any = {
-              trailer: '', // Default empty trailer
-              featured: '', // Default empty featured
-              tags: [] // Default empty tags array
+            const project: Project = {
+              id: '',
+              title: '',
+              type: '',
+              genre: '',
+              releaseDate: '',
+              description: '',
+              thumbnail: '',
+              trailer: '',
+              link: '',
+              price: '',
+              averageRating: '',
+              totalRatings: '',
+              featured: '',
+              tags: []
             };
 
             // Map each header to its corresponding value, preserving column positions
@@ -156,7 +167,7 @@ export default function AdminPage() {
                 // Format the date
                 project.releaseDate = formatDate(row[index] || '');
               } else if (header) {
-                project[header] = row[index] || '';
+                (project as any)[header] = row[index] || '';  // Add type assertion
               }
             });
             

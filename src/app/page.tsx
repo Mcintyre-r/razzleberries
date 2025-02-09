@@ -8,6 +8,7 @@ import ProjectCard from '@/components/ProjectCard';
 import projects from '@/data/projects.json';
 import Link from 'next/link';
 import ProjectModal from '@/components/ProjectModal';
+import Image from 'next/image';
 
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -80,10 +81,12 @@ export default function Home() {
               Over many years, our team has left its mark on Minecraft in ways no other team has. Whether it be through official collaborations with Mojang and Microsoft, additions to and development of Minecraft itself, or large scale advertising and showcasing campaigns – Razzleberries continues to provide a track record of creativity and innovation on a truly professional scale.
             </p>
           </div>
-          <img 
+          <Image 
             src="/RB_Berry_White.png" 
             alt="RazzAB Berry White" 
             className={styles.modalImage}
+            width={100}
+            height={100}
           />
         </div>
       </Modal>

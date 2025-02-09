@@ -78,11 +78,13 @@ export default function FeaturedContent() {
                   allowFullScreen
                 />
               ) : (
-                <img
+                <Image
                   src={project.thumbnail}
                   alt={project.title}
                   className={styles.slideBanner}
-                />
+                  width={100}
+                  height={100}
+                />  
               )}
               <div className={`${styles.slideOverlay} ${isHovered ? styles.visible : ''}`}>
                 <h3 className={styles.slideTitle}>{project.title}</h3>

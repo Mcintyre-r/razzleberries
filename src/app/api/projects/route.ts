@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
-
+import { Project } from '@/types/project';
 const dataFilePath = path.join(process.cwd(), 'src/data/projects.json');
 
 export async function GET() {
@@ -19,7 +19,7 @@ export async function PUT(request: Request) {
     const fileContents = await fs.readFile(dataFilePath, 'utf8');
     const data = JSON.parse(fileContents);
     
-    data.projects = data.projects.map((p: any) => 
+    data.projects = data.projects.map((p: Project) => 
       p.id === project.id ? project : p
     );
 
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     const fileContents = await fs.readFile(dataFilePath, 'utf8');
     const data = JSON.parse(fileContents);
     
-    const maxId = Math.max(...data.projects.map((p: any) => p.id));
+    const maxId = Math.max(...data.projects.map((p: Project) => p.id));
     newProject.id = maxId + 1;
     
     data.projects.push(newProject);

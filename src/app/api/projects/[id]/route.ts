@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import { Project } from '@/types/project';
 
 export async function DELETE(
   request: Request,
@@ -12,7 +13,7 @@ export async function DELETE(
     const data = JSON.parse(fileContent);
     
     data.projects = data.projects.filter(
-      (project: any) => project.id !== parseInt(params.id)
+      (project: Project) => project.id !== params.id
     );
 
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
@@ -20,7 +21,7 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to delete project' },
+      { error: 'Failed to delete project: '+error },
       { status: 500 }
     );
   }
