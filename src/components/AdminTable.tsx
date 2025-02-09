@@ -293,133 +293,6 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
         <tbody>
           {sortedProjects.map(project => (
             <tr key={project.id}>
-              {editingId === project.id ? (
-                // Editing mode
-                <>
-                  <td>{project.id}</td>
-                  <td>
-                    <input
-                      value={editingData?.title}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        title: e.target.value
-                      })}
-                    />
-                  </td>
-                  <td>
-                    <select
-                      value={editingData?.type}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        type: e.target.value as Project['type']
-                      })}
-                    >
-                      {PROJECT_TYPES.map(type => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={editingData?.genre || ''}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        genre: e.target.value
-                      })}
-                      placeholder="Genre"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="datetime-local"
-                      value={editingData?.releaseDate ? new Date(editingData.releaseDate).toISOString().slice(0, 16) : ''}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        releaseDate: new Date(e.target.value).toISOString()
-                      })}
-                    />
-                  </td>
-                  <td>
-                    <textarea
-                      value={editingData?.description}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        description: e.target.value
-                      })}
-                    />
-                  </td>
-                  <td>
-                    {project.price ? `${project.price}` : '-'}
-                  </td>
-                  <td>
-                    {project.averageRating ? `${project.averageRating}` : '-'}
-                  </td>
-                  <td>
-                    {project.totalRatings ? `${project.totalRatings}` : '-'}
-                  </td>
-                  <td>
-                    <input
-                      type="url"
-                      value={editingData?.thumbnail}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        thumbnail: e.target.value
-                      })}
-                      placeholder="Image URL"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="url"
-                      value={editingData?.trailer}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        trailer: e.target.value
-                      })}
-                      placeholder="YouTube embed URL"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="url"
-                      value={editingData?.link}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        link: e.target.value
-                      })}
-                      placeholder="Marketplace URL"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={editingData?.tags.join(', ')}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
-                      })}
-                      placeholder="Comma-separated tags"
-                    />
-                  </td>
-                  <td>
-                    <select
-                      value={editingData?.featured}
-                      onChange={e => setEditingData({
-                        ...editingData!,
-                        featured: e.target.value
-                      })}
-                    >
-                      <option value="">No</option>
-                      <option value="true">Yes</option>
-                    </select>
-                  </td>
-                  <td>
-                    <button onClick={() => setEditingId(null)} className={styles.cancelButton}>Cancel</button>
-                  </td>
-                </>
-              ) : (
-                // View mode
                 <>
                   <td>{project.id}</td>
                   <td>{project.title}</td>
@@ -469,7 +342,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
                       <FaEdit />
                     </button>
                     <button 
-                      onClick={() => setDeleteId(project.id)} 
+                      onClick={() => setDeleteId(parseInt(project.id))} 
                       className={`${styles.iconButton} ${styles.deleteIcon}`}
                       title="Delete"
                     >
@@ -477,7 +350,6 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
                     </button>
                   </td>
                 </>
-              )}
             </tr>
           ))}
         </tbody>
