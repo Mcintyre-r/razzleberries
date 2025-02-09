@@ -9,12 +9,6 @@ import { Project } from '@/types/project';
 import AdminDropdown from '@/components/AdminDropdown';
 import { FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
 
-interface AdminDropdownProps {
-  onAddClick: () => void;
-  onExportClick: () => void;
-  onFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -153,7 +147,7 @@ export default function AdminPage() {
             };
 
             // Map each header to its corresponding value, preserving column positions
-            headers.forEach((header, index) => {
+            headers.forEach((header: string, index: number) => {
               if (header === 'tags') {
                 const tagString = row[index] || '';
                 project.tags = tagString ? tagString.split(';').map(tag => tag.trim()).filter(Boolean) : [];
@@ -166,8 +160,13 @@ export default function AdminPage() {
               } else if (header === 'releaseDate') {
                 // Format the date
                 project.releaseDate = formatDate(row[index] || '');
-              } else if (header) {
-                (project as any)[header] = row[index] || '';  // Add type assertion
+              } else {
+                const key = header as keyof Project;
+                if (key === 'tags') {
+                  project[key] = row[index] ? row[index].split(';') : [];
+                } else {
+                  project[key] = row[index] || '';
+                }
               }
             });
             
