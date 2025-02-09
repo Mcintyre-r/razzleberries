@@ -5,7 +5,7 @@ import { Project } from '@/types/project';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } } & { searchParams: { [key: string]: string | string[] | undefined } }
 ) {
   try {
     const filePath = path.join(process.cwd(), 'src/data/projects.json');
