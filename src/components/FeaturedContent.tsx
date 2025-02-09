@@ -37,7 +37,7 @@ export default function FeaturedContent() {
   };
 
   return (
-    <div className={styles.carouselContainer}>
+    <div className={`${styles.carouselContainer} ${styles.swiperButtons}`}>
       <Swiper
         modules={[Navigation, Pagination, EffectFade, Autoplay]}
         effect="fade"

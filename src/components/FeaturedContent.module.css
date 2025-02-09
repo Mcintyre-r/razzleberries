@@ -6,6 +6,10 @@
   padding: 0 2rem; /* Restore horizontal padding */
 }
 
+.carouselContainer.swiperButtons {
+  position: relative;
+}
+
 .featuredSwiper {
   width: 100%;
   height: 100%;
@@ -123,19 +127,26 @@
 }
 
 /* Swiper custom styles */
-:global(.swiper-button-next),
-:global(.swiper-button-prev) {
-  color: #e80570 !important;
+.swiperButtons :global(.swiper-button-next),
+.swiperButtons :global(.swiper-button-prev) {
+  color: rgba(232, 5, 112, 0.8);
+  /* background: rgba(0, 0, 0, 0.5);
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  transition: all 0.3s ease; */
 }
+/* 
+.swiperButtons :global(.swiper-button-next:hover),
+.swiperButtons :global(.swiper-button-prev:hover) {
+  background: rgba(232, 5, 112, 0.8);
+  transform: scale(1.1);
+} */
 
-:global(.swiper-pagination-bullet) {
-  background: #e80570 !important;
-  opacity: 0.5;
-}
-
-:global(.swiper-pagination-bullet-active) {
-  opacity: 1;
-}
+/* .swiperButtons :global(.swiper-button-next::after),
+.swiperButtons :global(.swiper-button-prev::after) {
+  font-size: 1.5rem;
+} */
 
 /* Update Swiper to show adjacent slides */
 :global(.swiper) {
