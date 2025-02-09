@@ -1,21 +1,10 @@
 import styles from './ProjectModal.module.css';
 import Image from 'next/image';
 import { FaStar, FaStarHalf } from 'react-icons/fa';
+import { Project } from '@/types/project';
 
-interface ProjectModalProps {
-  project: {
-    title: string;
-    description: string;
-    trailer: string;
-    tags: string[];
-    link: string;
-    thumbnail: string;
-    averageRating: number;
-    totalRatings: number;
-    type: string;
-    genre: string;
-    price: number;
-  };
+interface ProjectModalProps { 
+  project: Project;
   onClose: () => void;
 }
 
@@ -49,7 +38,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           <h2 className={styles.title}>{project.title}</h2>
           {project.averageRating && (
             <div className={styles.ratingContainer}>
-              {renderStars(project.averageRating)}
+              {renderStars(Number(project.averageRating))}
               <span className={styles.totalRatings}>({project.totalRatings})</span>
             </div>
           )}
