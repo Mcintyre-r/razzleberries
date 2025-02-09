@@ -114,10 +114,6 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const sortConfig = useState<{
-    key: keyof Project;
-    direction: 'ascending' | 'descending';
-  } | null>(null);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -197,12 +193,17 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
   });
 
   const sortedProjects = [...filteredProjects].sort((a, b) => {
-    if (!sortConfig) return 0;
-    const aValue = a[sortConfig.key];
-    const bValue = b[sortConfig.key];
-    return sortConfig.direction === 'ascending' 
-      ? aValue > bValue ? 1 : -1
-      : aValue < bValue ? 1 : -1;
+    if (!sortField) return 0;
+    
+    const aValue = a[sortField];
+    const bValue = b[sortField];
+    
+    if (sortDirection === 'asc') {
+      return aValue > bValue ? 1 : -1;
+    } else if (sortDirection === 'desc') {
+      return aValue < bValue ? 1 : -1;
+    }
+    return 0;
   });
 
   const handleEdit = (project: Project) => {
@@ -241,7 +242,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
       });
 
       if (response.ok) {
-        const updatedProjects = projects.filter(p => p.id !== id);
+        const updatedProjects = projects.filter(p => p.id !== id.toString());
         onUpdate(updatedProjects);
       }
     } catch (error) {
