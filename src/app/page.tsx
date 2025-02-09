@@ -103,7 +103,6 @@ export default function Home() {
               key={project.id}
               project={project}
               onClick={() => setSelectedProject(project)}
-              className={styles.latestReleaseCard}
             />
           ))}
         </div>

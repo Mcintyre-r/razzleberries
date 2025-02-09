@@ -130,18 +130,18 @@
 .swiperButtons :global(.swiper-button-next),
 .swiperButtons :global(.swiper-button-prev) {
   color: rgba(232, 5, 112, 0.8);
-  /* background: rgba(0, 0, 0, 0.5);
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  transition: all 0.3s ease; */
+  /* background: rgba(0, 0, 0, 0.5); */
+  /* width: 50px; */
+  /* height: 50px; */
+  /* border-radius: 25px */
+  transition: all 0.3s ease; 
 }
-/* 
+
 .swiperButtons :global(.swiper-button-next:hover),
 .swiperButtons :global(.swiper-button-prev:hover) {
-  background: rgba(232, 5, 112, 0.8);
+  /* background: rgba(232, 5, 112, 0.8); */
   transform: scale(1.1);
-} */
+}
 
 /* .swiperButtons :global(.swiper-button-next::after),
 .swiperButtons :global(.swiper-button-prev::after) {
@@ -149,21 +149,21 @@
 } */
 
 /* Update Swiper to show adjacent slides */
-:global(.swiper) {
+.swiperContainer :global(.swiper) {
   overflow: visible !important;
 }
 
 /* Adjust navigation buttons to account for visible overflow */
-:global(.swiper-button-next) {
+.swiperButtons :global(.swiper-button-next) {
   right: 5% !important;
 }
 
-:global(.swiper-button-prev) {
+.swiperButtons :global(.swiper-button-prev) {
   left: 5% !important;
 }
 
 /* Update swiper slide to match content area */
-:global(.swiper-slide) {
+.swiperSlides :global(.swiper-slide) {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -172,7 +172,7 @@
   pointer-events: none;
 }
 
-:global(.swiper-slide-active) {
+.swiperSlides :global(.swiper-slide-active) {
   opacity: 1;
 }
 
@@ -280,4 +280,40 @@
 
 .latestRelease:hover {
   transform: translateY(-4px);
+}
+
+/* Add local class wrapper for swiper container */
+.swiperContainer :global(.swiper) {
+  overflow: visible !important;
+}
+
+/* Add local class wrapper for swiper slides */
+.swiperContainer :global(.swiper-slide) {
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.swiperContainer :global(.swiper-slide-active) {
+  opacity: 1;
+}
+
+.swiperContainer :global(.swiper-slide-prev),
+.swiperContainer :global(.swiper-slide-next) {
+  opacity: 0.7;
+}
+
+/* Navigation buttons */
+.swiperButtons :global(.swiper-button-next),
+.swiperButtons :global(.swiper-button-prev) {
+  color: rgba(232, 5, 112, 0.8);
+}
+
+/* Pagination */
+.swiperContainer :global(.swiper-pagination-bullet) {
+  background: #e80570;
+  opacity: 0.5;
+}
+
+.swiperContainer :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
 } 
