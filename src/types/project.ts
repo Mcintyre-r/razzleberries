@@ -16,8 +16,11 @@ export interface Project {
 }
 
 export const PROJECT_TYPES = [
-  'Map',
+  'Adventure World',
   'Add-on',
-  'Dynamic World',
-  'Skin-Pack'
+  'Skinpack',
+  'Persona',
+  'Mini-Game World',
+  'Survival Spawn World',
+  'Resourcepack'
 ] as const; 
