@@ -9,11 +9,11 @@ import projects from '@/data/projects.json';
 import Link from 'next/link';
 import ProjectModal from '@/components/ProjectModal';
 import Image from 'next/image';
-
+import { Project } from '@/types/project';
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
