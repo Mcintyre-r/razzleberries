@@ -1,0 +1,272 @@
+.carouselContainer {
+  width: 100%;
+  height: 85vh;
+  position: relative;
+  background: #fff;
+  padding: 0 2rem; /* Restore horizontal padding */
+}
+
+.featuredSwiper {
+  width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 10%; /* Restore horizontal padding */
+}
+
+.slideContent {
+  width: 80%;
+  height: 80vh; /* Adjusted to be closer to container height */
+  position: relative;
+  margin: 0 auto;
+  pointer-events: none; /* Disable hover on the container */
+}
+
+.slideBanner,
+.slideVideo,
+.slideOverlay {
+  pointer-events: auto; /* Re-enable hover only on these elements */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 12px;
+}
+
+.slideOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slideOverlay.visible {
+  opacity: 1;
+}
+
+.slideTitle {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Oswald', sans-serif; /* Match navbar font */
+}
+
+.slideDescription {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: white;
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 2rem;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.purchaseButton {
+  background: #e80570;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.trailerButton {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.purchaseButton:hover {
+  background: #ff1585;
+  transform: translateY(-2px);
+}
+
+.trailerButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.minecoinIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Swiper custom styles */
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  color: #e80570 !important;
+}
+
+:global(.swiper-pagination-bullet) {
+  background: #e80570 !important;
+  opacity: 0.5;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+}
+
+/* Update Swiper to show adjacent slides */
+:global(.swiper) {
+  overflow: visible !important;
+}
+
+/* Adjust navigation buttons to account for visible overflow */
+:global(.swiper-button-next) {
+  right: 5% !important;
+}
+
+:global(.swiper-button-prev) {
+  left: 5% !important;
+}
+
+/* Update swiper slide to match content area */
+:global(.swiper-slide) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+:global(.swiper-slide-active) {
+  opacity: 1;
+}
+
+.slideBadge {
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+  background: rgba(232, 5, 112, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Oswald', sans-serif; /* Match navbar font */
+}
+
+.slideContent:hover .slideBadge {
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .carouselContainer {
+    height: auto;
+    padding: 0;
+  }
+
+  .featuredSwiper {
+    width: 100%;
+    padding: 0;
+  }
+
+  .slideContent {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+    margin: 0;
+    transition: padding-bottom 0.3s ease;
+  }
+
+  /* Expand height when overlay is visible */
+  .slideContent:has(.slideOverlay.visible) {
+    padding-bottom: 100%; /* Expand to square aspect ratio */
+  }
+
+  .slideOverlay {
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85); /* Darker background for better readability */
+  }
+
+  .slideVideo,
+  .slideBanner {
+    transition: all 0.3s ease;
+  }
+
+  /* Adjust video/banner when overlay is visible */
+  .slideContent:has(.slideOverlay.visible) .slideVideo,
+  .slideContent:has(.slideOverlay.visible) .slideBanner {
+    transform: scale(1.1);
+    filter: blur(3px);
+  }
+
+  .slideTitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .slideDescription {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+
+  .slideBadge {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+.latestReleases {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem; /* Add gap between releases */
+  margin-top: 2rem;
+}
+
+.latestRelease {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.latestRelease:hover {
+  transform: translateY(-4px);
+} 

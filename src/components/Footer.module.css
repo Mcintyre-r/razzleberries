@@ -1,0 +1,157 @@
+.footer {
+  background: white;
+  padding: 3rem 2rem;
+  color: #333;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(232, 5, 112, 0) 0%,
+    rgba(232, 5, 112, 1) 35%,
+    rgba(232, 5, 112, 1) 65%,
+    rgba(232, 5, 112, 0) 100%
+  );
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.leftSection, .rightSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.discordButton {
+  display: inline-block;
+  margin-bottom: 2rem;
+  transition: transform 0.2s;
+  width: 180px;
+}
+
+.discordButton:hover {
+  transform: translateY(-2px);
+}
+
+.partners {
+  width: 100%;
+}
+
+.partnersTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.partnerLogos {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.partnerLogos img {
+  max-width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.brandSection {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brandTitle {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.partnerBadge {
+  width: 120px;
+  height: auto;
+}
+
+.socialSection {
+  text-align: center;
+}
+
+.socialTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.socialLinks a {
+  color: #333;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.socialLinks a svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.socialLinks a:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+  
+  .partnerLogos {
+    gap: 1.5rem;
+  }
+  
+  .partnerLogos img {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .partnerLogos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} 

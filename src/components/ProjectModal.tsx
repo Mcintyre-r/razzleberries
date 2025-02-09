@@ -1,0 +1,117 @@
+import styles from './ProjectModal.module.css';
+import Image from 'next/image';
+import { FaStar, FaStarHalf } from 'react-icons/fa';
+
+interface ProjectModalProps {
+  project: {
+    title: string;
+    description: string;
+    trailer: string;
+    tags: string[];
+    link: string;
+    thumbnail: string;
+    averageRating: number;
+    totalRatings: number;
+    type: string;
+    genre: string;
+    price: number;
+  };
+  onClose: () => void;
+}
+
+export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<FaStar key={`full-${i}`} className={styles.star} />);
+    }
+
+    if (hasHalfStar) {
+      stars.push(<FaStarHalf key="half" className={styles.star} />);
+    }
+
+    const emptyStars = 5 - stars.length;
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<FaStar key={`empty-${i}`} className={styles.emptyStar} />);
+    }
+
+    return stars;
+  };
+
+  return (
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modal} onClick={e => e.stopPropagation()}>
+        <button className={styles.closeButton} onClick={onClose}>&times;</button>
+        <div className={styles.header}>
+          <h2 className={styles.title}>{project.title}</h2>
+          {project.averageRating && (
+            <div className={styles.ratingContainer}>
+              {renderStars(project.averageRating)}
+              <span className={styles.totalRatings}>({project.totalRatings})</span>
+            </div>
+          )}
+        </div>
+        
+        <div className={styles.content}>
+          
+          <div className={styles.mainContent}>
+            <div className={styles.mediaContainer}>
+              {project.trailer ? (
+                <iframe
+                  src={project.trailer}
+                  title="Trailer"
+                  allowFullScreen
+                  className={styles.video}
+                />
+              ) : (
+                <Image
+                  src={project.thumbnail}
+                  alt={project.title}
+                  fill
+                  className={styles.thumbnail}
+                  priority
+                />
+              )}
+            </div>
+            
+            <div className={styles.projectInfo}>
+              <span className={styles.type}>{project.type}</span>
+              {project.genre && (
+                <>
+                  <span className={styles.separator}>•</span>
+                  <span className={styles.genre}>{project.genre}</span>
+                </>
+              )}
+            </div>
+
+            <p className={styles.description}>{project.description}</p>
+          </div>
+        </div>
+        <div className={styles.footer}>
+          <div className={styles.leftColumn}>
+              <div className={styles.tags}>
+                {project.tags.map((tag, index) => (
+                  <span key={index} className={styles.tag}>{tag}</span>
+                ))}
+              </div>
+            </div>
+          <div className={styles.purchaseButton}>
+            <span>Purchase</span>
+            <div className={styles.priceContainer}>
+              <Image 
+                src="/minecoin.png" 
+                alt="Minecoin" 
+                width={20} 
+                height={20} 
+              />
+              <span>{project.price}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+} 

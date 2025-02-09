@@ -1,101 +1,126 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from "react";
+import styles from './page.module.css';
+import Modal from '@/components/Modal';
+import FeaturedContent from '@/components/FeaturedContent';
+import ProjectCard from '@/components/ProjectCard';
+import projects from '@/data/projects.json';
+import Link from 'next/link';
+import ProjectModal from '@/components/ProjectModal';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20 && !hasScrolled) {
+        setHasScrolled(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolled]);
+
+  // Get the 3 newest releases
+  const latestReleases = [...projects.projects]
+    .sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
+    .slice(0, 3);
+
+  return (
+    <main className={`${styles.main} ${hasScrolled ? styles.collapsed : ''}`}>
+      <section className={styles.hero} aria-label="Introduction">
+        {hasScrolled && (
+          <div className={styles.videoBackground}>
+            <div className={styles.videoOverlay}></div>
+            <iframe
+              className={styles.backgroundVideo}
+              src="https://www.youtube.com/embed/lQkqCbD5xjA?autoplay=1&mute=1&controls=0&loop=1&playlist=lQkqCbD5xjA"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>
+            WHO ARE THE BERRIES?
+            <div className={styles.titleBar} aria-hidden="true"></div>
+          </h1>
+          <div className={styles.heroButtons}>
+            <button 
+              className={styles.primaryButton}
+              onClick={() => setIsModalOpen(true)}
+            >
+              LEARN MORE
+            </button>
+            <a 
+              href="https://www.minecraft.net/en-us/marketplace/creator?name=razzleberries"
             target="_blank"
             rel="noopener noreferrer"
+              className={styles.buyButton}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+              CHECK US OUT
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </section>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+          <div className={styles.modalTextContent}>
+            <p>
+              Razzleberries is a founding partner and industry leader on the Minecraft Marketplace. We are a community of talented programmers, builders, and artists that have collectively acquired over a quarter billion mod downloads, 2.3 million Marketplace sales, and countless builds, textures and models.
+            </p>
+            <p>
+              Responsible for just under 5% of all content on the marketplace, we have earned well over 115 thousand 5-star reviews spanning more than 260 pieces of unique and innovative content while maintaining an average rating of nearly 4.4 stars.
+            </p>
+            <p>
+              Over many years, our team has left its mark on Minecraft in ways no other team has. Whether it be through official collaborations with Mojang and Microsoft, additions to and development of Minecraft itself, or large scale advertising and showcasing campaigns – Razzleberries continues to provide a track record of creativity and innovation on a truly professional scale.
+            </p>
+          </div>
+          <img 
+            src="/RB_Berry_White.png" 
+            alt="RazzAB Berry White" 
+            className={styles.modalImage}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </div>
+      </Modal>
+
+      <section className={styles.featuredSection} aria-label="Featured Content">
+        <h2 className={styles.sectionTitle}>FEATURED CONTENT</h2>
+        <FeaturedContent />
+      </section>
+
+      {/* Latest Releases Section */}
+      <section className={styles.newsSection} aria-label="Latest Releases">
+        <h2 className={styles.sectionTitle}>LATEST RELEASES</h2>
+        <div className={styles.latestReleasesGrid}>
+          {latestReleases.map(project => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onClick={() => setSelectedProject(project)}
+              className={styles.latestReleaseCard}
+            />
+          ))}
+        </div>
+        <div className={styles.moreReleasesContainer}>
+          <Link href="/projects" className={styles.moreReleasesButton}>
+            Check out more releases
+          </Link>
+        </div>
+      </section>
+
+      {/* Add Modal for Latest Releases */}
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
+    </main>
   );
 }

@@ -1,0 +1,194 @@
+.container {
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+}
+
+.searchBar {
+  margin-bottom: 2rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid #e80570;
+  border-radius: 8px;
+  background: white;
+  color: #333;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+}
+
+.addonGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.projectCard {
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
+}
+
+.mobileFilterToggle {
+  display: none;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #e80570;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.projectGridHeader {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.projectGridTitle {
+  font-size: 2.5rem;
+  color: #e80570;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.projectGridDivider {
+  height: 2px;
+  background: #e80570;
+  opacity: 0.2;
+  margin: 0.5rem auto;
+  max-width: 200px;
+}
+
+@media (max-width: 1200px) {
+  .projectGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .projectGridHeader {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .projectGridTitle {
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .projectGridDivider {
+    height: 2px;
+    background: #e80570;
+    opacity: 0.2;
+    margin: 0.5rem auto;
+    max-width: 150px;
+  }
+
+  .projectGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .projectCard {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    aspect-ratio: 16/9;
+    height: auto;
+  }
+
+  .mobileFilterToggle {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
+  }
+
+  .filterButton {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    padding: 1rem 0.375rem;
+    background: #e80570;
+    color: white;
+    border: none;
+    border-radius: 6px 0 0 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .filterButton svg {
+    transform: rotate(180deg);
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .filterSidebar {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    bottom: 0;
+    width: 80%;
+    max-width: 300px;
+    background: white;
+    z-index: 1000;
+    padding: 1rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .filterVisible .filterSidebar {
+    display: block;
+    transform: translateX(0);
+  }
+
+  .filterVisible .filterButton {
+    left: calc(80% - 1rem);
+    max-left: calc(300px - 1rem);
+  }
+} 

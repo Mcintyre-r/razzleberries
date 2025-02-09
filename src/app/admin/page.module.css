@@ -1,0 +1,231 @@
+.container {
+  padding: 1rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: black;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  background: white;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  height: 60px;
+  position: relative;
+}
+
+.headerRow h1 {
+  color: black;
+  margin: 0;
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+
+.addButton {
+  background: #e80570;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  height: 40px;
+}
+
+.addButton:hover {
+  background: #ff1585;
+  transform: translateY(-2px);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.searchBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  max-width: 600px;
+  margin-right: auto;
+}
+
+.searchBar input {
+  width: 100%;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #e80570;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filterButton:hover {
+  background: #d1046a;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filterPanel {
+  background: white;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filterGroup:last-child {
+  margin-bottom: 0;
+}
+
+.filterGroup label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 100px;
+}
+
+.filterGroup input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.filterGroup select,
+.filterGroup input[type="date"] {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  min-width: 150px;
+}
+
+.filterGroup span {
+  color: #666;
+}
+
+.resetButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #666;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.resetButton:hover {
+  background: #555;
+}
+
+.headerRow > :last-child {
+  margin-left: auto;
+}
+
+.rangeInputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rangeInputs input {
+  width: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.rangeInputs span {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .headerRow {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .searchBar {
+    max-width: none;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .headerRow > :last-child {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+
+  .filterPanel {
+    padding: 1rem;
+  }
+
+  .filterGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .filterGroup label {
+    min-width: auto;
+  }
+
+  .filterGroup select,
+  .filterGroup input[type="date"] {
+    width: 100%;
+  }
+
+  .rangeInputs {
+    width: 100%;
+  }
+
+  .rangeInputs input {
+    flex: 1;
+  }
+} 

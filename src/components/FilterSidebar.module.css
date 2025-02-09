@@ -1,0 +1,195 @@
+.sidebar {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid #e80570;
+  position: sticky;
+  top: calc(70px + 2rem);
+  height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+}
+
+/* Add custom scrollbar styling */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #e80570;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #ff1585;
+}
+
+.searchContainer {
+  flex-shrink: 0; /* Prevent search from shrinking */
+  margin-bottom: 1.5rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #e80570;
+  border-radius: 8px;
+  background: white;
+  color: #333;
+}
+
+.title {
+  color: #e80570;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.tagList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+/* Scrollbar styles for tagList instead of sidebar */
+.tagList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tagList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.tagList::-webkit-scrollbar-thumb {
+  background: #e80570;
+  border-radius: 4px;
+}
+
+.tagList::-webkit-scrollbar-thumb:hover {
+  background: #ff1585;
+}
+
+.tagLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.tagLabel input {
+  accent-color: #e80570;
+}
+
+.filterSection {
+  margin-bottom: 1.5rem;
+}
+
+.filterHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #e80570;
+}
+
+.filterHeader:hover {
+  opacity: 0.8;
+}
+
+.filterList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.filterLabel input {
+  accent-color: #e80570;
+}
+
+.filtersContainer {
+  flex: 1;
+  overflow-y: auto;
+  margin-right: -0.5rem; /* Offset for padding to align scrollbar */
+  padding-right: 0.5rem;
+}
+
+/* Scrollbar styles for filtersContainer */
+.filtersContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filtersContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.filtersContainer::-webkit-scrollbar-thumb {
+  background: #e80570;
+  border-radius: 4px;
+}
+
+.filtersContainer::-webkit-scrollbar-thumb:hover {
+  background: #ff1585;
+}
+
+.sortContainer {
+  margin-bottom: 1.5rem;
+}
+
+.sortSelect {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #e80570;
+  border-radius: 8px;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e80570'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5rem;
+}
+
+.sortSelect:focus {
+  outline: none;
+  border-color: #ff1585;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h3 {
+  margin-bottom: 1rem;
+  color: #e80570;
+  font-size: 1.2rem;
+}
+
+/* Adjust SearchBar container width for sidebar */
+.section :global(.searchContainer) {
+  max-width: 100%;
+} 
