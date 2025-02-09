@@ -9,7 +9,7 @@ export async function GET() {
     const fileContents = await fs.readFile(dataFilePath, 'utf8');
     return NextResponse.json(JSON.parse(fileContents));
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to load projects' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to load projects: '+error }, { status: 500 });
   }
 }
 
@@ -26,7 +26,7 @@ export async function PUT(request: Request) {
     await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
     return NextResponse.json(project);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to update project: '+error }, { status: 500 });
   }
 }
 
@@ -44,6 +44,6 @@ export async function POST(request: Request) {
     
     return NextResponse.json(newProject);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to add project' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to add project: '+error }, { status: 500 });
   }
 } 

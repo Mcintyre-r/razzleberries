@@ -7,7 +7,6 @@ import ProjectModal from '@/components/ProjectModal';
 import FilterSidebar from '@/components/FilterSidebar';
 import projects from '@/data/projects.json';
 import { FaFilter } from 'react-icons/fa';
-import SearchBar from '@/components/SearchBar';
 
 type SortField = 'releaseDate' | 'title' | 'price' | 'averageRating';
 type SortDirection = 'asc' | 'desc';
@@ -18,7 +17,7 @@ export default function ProjectsPage() {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortField>('releaseDate');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   // Get unique tags and types from all addons
@@ -85,9 +84,6 @@ export default function ProjectsPage() {
     });
   }, [filteredProjects, sortBy, sortDirection]);
 
-  const handleSearch = (searchTerm: string) => {
-    setSearchTerm(searchTerm);
-  };
 
   return (
     <div className={styles.container}>

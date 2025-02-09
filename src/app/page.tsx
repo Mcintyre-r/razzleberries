@@ -12,7 +12,7 @@ import ProjectModal from '@/components/ProjectModal';
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +25,6 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasScrolled]);
 
-  // Get the 3 newest releases
   const latestReleases = [...projects.projects]
     .sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
     .slice(0, 3);
@@ -94,7 +93,6 @@ export default function Home() {
         <FeaturedContent />
       </section>
 
-      {/* Latest Releases Section */}
       <section className={styles.newsSection} aria-label="Latest Releases">
         <h2 className={styles.sectionTitle}>LATEST RELEASES</h2>
         <div className={styles.latestReleasesGrid}>
@@ -113,7 +111,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Add Modal for Latest Releases */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}

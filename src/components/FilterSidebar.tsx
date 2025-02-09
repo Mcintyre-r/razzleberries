@@ -29,7 +29,6 @@ export default function FilterSidebar({
   types,
   selectedTypes,
   onTypeToggle,
-  searchTerm,
   onSearchChange,
   sortBy,
   sortDirection,

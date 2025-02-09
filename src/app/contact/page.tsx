@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import styles from './page.module.css';
 import { FaTwitter, FaInstagram } from 'react-icons/fa';
 import BlueskyIcon from '@/components/BlueskyIcon';

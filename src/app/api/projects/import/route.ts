@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ projects });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to import projects' },
+      { error: 'Failed to import projects: '+error },
       { status: 500 }
     );
   }

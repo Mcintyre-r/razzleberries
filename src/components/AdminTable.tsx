@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import styles from './AdminTable.module.css';
 import { Project, PROJECT_TYPES } from '@/types/project';
-import { FaSort, FaSortUp, FaSortDown, FaEdit, FaTrash, FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
+import { FaSort, FaSortUp, FaSortDown, FaEdit, FaTrash} from 'react-icons/fa';
 import EditReleaseForm from '@/components/EditReleaseForm';
 
 interface AdminTableProps {
@@ -114,7 +114,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const [sortConfig, setSortConfig] = useState<{
+  const sortConfig = useState<{
     key: keyof Project;
     direction: 'ascending' | 'descending';
   } | null>(null);
