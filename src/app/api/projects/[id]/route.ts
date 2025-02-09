@@ -5,15 +5,16 @@ import { Project } from '@/types/project';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } } & { searchParams: { [key: string]: string | string[] | undefined } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const filePath = path.join(process.cwd(), 'src/data/projects.json');
     const fileContent = await fs.readFile(filePath, 'utf8');
     const data = JSON.parse(fileContent);
     
     data.projects = data.projects.filter(
-      (project: Project) => project.id !== params.id
+      (project: Project) => project.id !== id
     );
 
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
