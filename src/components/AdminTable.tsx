@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import styles from './AdminTable.module.css';
-import { Project, PROJECT_TYPES } from '@/types/project';
+import { Project } from '@/types/project';
 import { FaSort, FaSortUp, FaSortDown, FaEdit, FaTrash} from 'react-icons/fa';
 import EditReleaseForm from '@/components/EditReleaseForm';
 
@@ -106,8 +106,6 @@ const formatDisplayDate = (dateString: string): string => {
 };
 
 export default function AdminTable({ projects, onUpdate, filters }: AdminTableProps) {
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [editingData, setEditingData] = useState<Project | null>(null);
   const [showDescriptionModal, setShowDescriptionModal] = useState(false);
   const [selectedDescription, setSelectedDescription] = useState('');
   const [sortField, setSortField] = useState<SortField>('id');
