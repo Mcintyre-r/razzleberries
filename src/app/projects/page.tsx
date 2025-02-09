@@ -46,10 +46,10 @@ export default function ProjectsPage() {
         return sortDirection === 'desc' ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime();
       }
       switch (sortBy) {
-        case 'title-asc':
-          return a.title.localeCompare(b.title);
-        case 'title-desc':
-          return b.title.localeCompare(a.title);
+        // case 'title-asc':
+        //   return a.title.localeCompare(b.title);
+        // case 'title-desc':
+        //   return b.title.localeCompare(a.title);
         default:
           return 0;
       }
