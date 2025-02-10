@@ -17,7 +17,7 @@ export default function ContactPage() {
             <div className={styles.discordContent}>
               <div className={styles.discordWidget}>
                 <iframe 
-                  src="https://discord.com/widget?id=716015727630483576&theme=dark" 
+                  src="https://discord.com/widget?id=446006711288070145&theme=dark" 
                   width="600" 
                   height="350" 
                   sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
