@@ -80,6 +80,7 @@ export default function Footer() {
               <Image src="/microsoft-logo.png" alt="Microsoft" width={150} height={40} />
               <Image src="/nvidia-logo.png" alt="NVIDIA" width={150} height={40} />
               <Image src="/creeperhost-logo.png" alt="CreeperHost" width={150} height={40} />
+              <Image src="/sanrio-logo.png" alt="Sanrio" width={150} height={40} />
             </div>
           </div>
         </div>
