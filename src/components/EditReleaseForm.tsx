@@ -152,15 +152,6 @@ export default function EditReleaseForm({ project, onClose, onSave }: EditReleas
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label>Genre:</label>
-            <input
-              type="text"
-              value={formData.genre}
-              onChange={e => setFormData({ ...formData, genre: e.target.value })}
-              placeholder="Enter genre"
-            />
-          </div>
 
           <div className={styles.formGroup}>
             <label>Price:</label>

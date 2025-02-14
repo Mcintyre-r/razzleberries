@@ -290,7 +290,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
                 <>
                   <td>{project.id}</td>
                   <td>{project.title}</td>
-                  <td>{project.type}</td
+                  <td>{project.type}</td>
                   <td>{formatDisplayDate(project.releaseDate)}</td>
                   <td>
                     <a 
