@@ -90,6 +90,13 @@ export default function ProjectsPage() {
     });
   }, [filteredProjects, sortBy, sortDirection]);
 
+  const handleResetFilters = () => {
+    setSelectedTags([]);
+    setSelectedTypes([]);
+    setSearchTerm('');
+    setSortBy('releaseDate');
+    setSortDirection('desc');
+  };
 
   return (
     <div className={styles.container}>
@@ -132,6 +139,7 @@ export default function ProjectsPage() {
               setSortBy(field);
               setSortDirection(direction);
             }}
+            onResetFilters={handleResetFilters}
           />
         </div>
         

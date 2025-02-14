@@ -19,6 +19,7 @@ interface FilterSidebarProps {
   sortBy: SortField;
   sortDirection: SortDirection;
   onSortChange: (field: SortField, direction: SortDirection) => void;
+  onResetFilters: () => void;
 }
 
 export default function FilterSidebar({
@@ -29,20 +30,35 @@ export default function FilterSidebar({
   types,
   selectedTypes,
   onTypeToggle,
+  searchTerm,
   onSearchChange,
   sortBy,
   sortDirection,
-  onSortChange
+  onSortChange,
+  onResetFilters
 }: FilterSidebarProps) {
   const [isTagsExpanded, setIsTagsExpanded] = useState(true);
   const [isTypesExpanded, setIsTypesExpanded] = useState(true);
 
   const filteredTags = tags.filter(tag => tag && tag.trim() !== '');
 
+  const hasActiveFilters = selectedTags.length > 0 || 
+                          selectedTypes.length > 0 || 
+                          searchTerm.trim() !== '';
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.section}>
-        <h3>Search</h3>
+        <div className={styles.searchHeader}>
+          <h3>Search</h3>
+          <button 
+            onClick={onResetFilters}
+            className={styles.resetButton}
+            disabled={!hasActiveFilters}
+          >
+            Reset Filters
+          </button>
+        </div>
         <SearchBar 
           projects={projects}
           onSearch={onSearchChange}
