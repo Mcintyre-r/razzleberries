@@ -2,12 +2,23 @@ import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { Project } from '@/types/project';
+import axios from 'axios';
 const dataFilePath = path.join(process.cwd(), 'src/data/projects.json');
 
 export async function GET() {
+  if (!process.env.JSON_URL || !process.env.JSON_KEY) {
+    return NextResponse.json({ error: 'Missing environment variables' }, { status: 500 });
+  }
+
   try {
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    return NextResponse.json(JSON.parse(fileContents));
+    const response = await axios.get(process.env.JSON_URL, {
+      headers: {
+        'X-SILO-KEY': process.env.JSON_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+    // console.log(response.data)
+    return NextResponse.json(response.data);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to load projects: '+error }, { status: 500 });
   }

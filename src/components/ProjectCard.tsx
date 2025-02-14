@@ -43,9 +43,13 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     return <div className={styles.rating}>{stars}</div>;
   };
 
-  const hasTags = project.tags && project.tags.length > 0;
-  const displayTags = hasTags ? project.tags.slice(0, 4) : [];
-  const remainingTags = hasTags ? project.tags.length - 4 : 0;
+  const hasTags = project.tags && project.tags.filter(tag => tag && tag.trim() !== '').length > 0;
+  const displayTags = hasTags 
+    ? project.tags
+        .filter(tag => tag && tag.trim() !== '')
+        .slice(0, 4) 
+    : [];
+  const remainingTags = hasTags ? project.tags.filter(tag => tag && tag.trim() !== '').length - 4 : 0;
 
   return (
     <div className={styles.card} onClick={onClick}>

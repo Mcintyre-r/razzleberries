@@ -26,7 +26,11 @@ export default function ProjectsPage() {
   ).sort();
 
   const allTypes = Array.from(
-    new Set(projects.projects.map(projects => projects.type))
+    new Set(
+      projects.projects.flatMap(project => 
+        Array.isArray(project.type) ? project.type : [project.type]
+      )
+    )
   ).sort();
 
   // Sort and filter addons
@@ -36,7 +40,9 @@ export default function ProjectsPage() {
       const matchesTags = selectedTags.length === 0 || 
         selectedTags.every(tag => projects.tags.includes(tag));
       const matchesTypes = selectedTypes.length === 0 ||
-        selectedTypes.includes(projects.type);
+        (Array.isArray(projects.type)
+          ? selectedTypes.some(type => projects.type.includes(type))
+          : selectedTypes.includes(projects.type));
       return matchesSearch && matchesTags && matchesTypes;
     })
     .sort((a, b) => {

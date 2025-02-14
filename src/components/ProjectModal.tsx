@@ -29,6 +29,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
     return stars;
   };
+  const contentTypes = (project: Project) => {
+    if (Array.isArray(project.type)) {
+      return project.type.join(' • ');
+    }
+    return project.type;
+  };
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -67,7 +73,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
             
             <div className={styles.projectInfo}>
-              <span className={styles.type}>{project.type}</span>
+              <span className={styles.type}>{contentTypes(project)}</span>
               {project.genre && (
                 <>
                   <span className={styles.separator}>•</span>
@@ -76,18 +82,30 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               )}
             </div>
 
-            <p className={styles.description}>{project.description}</p>
+            <p className={styles.description}>
+              {project.description.split(/\\r\\n|\\n/).map((line, index) => (
+                line ? <span key={index}>{line}<br/></span> : <br key={index}/>
+              ))}
+            </p>
           </div>
         </div>
         <div className={styles.footer}>
           <div className={styles.leftColumn}>
               <div className={styles.tags}>
-                {project.tags.map((tag, index) => (
-                  <span key={index} className={styles.tag}>{tag}</span>
-                ))}
+                {project.tags
+                  .filter(tag => tag && tag.trim() !== '')
+                  .map((tag, index) => (
+                    <span key={index} className={styles.tag}>{tag}</span>
+                  ))}
               </div>
             </div>
-          <div className={styles.purchaseButton}>
+          <a 
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.purchaseButton}
+            style={{ textDecoration: 'none' }}
+          >
             <span>Purchase</span>
             <div className={styles.priceContainer}>
               <Image 
@@ -98,7 +116,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               />
               <span>{project.price}</span>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>

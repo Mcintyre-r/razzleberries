@@ -37,6 +37,8 @@ export default function FilterSidebar({
   const [isTagsExpanded, setIsTagsExpanded] = useState(true);
   const [isTypesExpanded, setIsTypesExpanded] = useState(true);
 
+  const filteredTags = tags.filter(tag => tag && tag.trim() !== '');
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.section}>
@@ -102,7 +104,7 @@ export default function FilterSidebar({
           </button>
           {isTagsExpanded && (
             <div className={styles.filterList}>
-              {tags.map(tag => (
+              {filteredTags.map(tag => (
                 <label key={tag} className={styles.filterLabel}>
                   <input
                     type="checkbox"
