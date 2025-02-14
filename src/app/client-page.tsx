@@ -63,14 +63,12 @@ export default function ClientPage({ initialProjects }: ClientPageProps) {
             >
               LEARN MORE
             </button>
-            <a 
-              href="https://www.minecraft.net/en-us/marketplace/creator?name=razzleberries"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link 
+              href="/projects"
               className={styles.buyButton}
             >
               CHECK US OUT
-            </a>
+            </Link>
           </div>
         </div>
       </section>
