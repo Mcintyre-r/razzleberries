@@ -1,0 +1,139 @@
+.container {
+  min-height: calc(100vh - 70px);
+  background: white;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+}
+
+.content h1 {
+  color: #e80570;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.intro {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.contactMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.primaryContact,
+.secondaryContact {
+  padding: 2rem;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.primaryContact {
+  border: 2px solid #e80570;
+}
+
+.secondaryContact {
+  border: 2px solid #5865F2;
+}
+
+.primaryContact h2,
+.secondaryContact h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.emailButton,
+.discordButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.emailButton {
+  background: #e80570;
+  color: white;
+}
+
+.discordButton {
+  background: #5865F2;
+  color: white;
+}
+
+.emailButton:hover,
+.discordButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.note {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.divider span {
+  background: white;
+  padding: 0 1rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.footer {
+  margin-top: 3rem;
+}
+
+.backButton {
+  color: #e80570;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: opacity 0.2s ease;
+}
+
+.backButton:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .content h1 {
+    font-size: 2rem;
+  }
+
+  .intro {
+    font-size: 1rem;
+  }
+
+  .emailButton,
+  .discordButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+} 
