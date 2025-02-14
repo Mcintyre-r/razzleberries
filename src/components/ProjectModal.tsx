@@ -71,6 +71,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 />
               )}
             </div>
+            
+            <div className={styles.projectInfo}>
+              <span className={styles.type}>{contentTypes(project)}</span>
+            </div>
 
             <p className={styles.description}>
               {project.description.split(/\\r\\n|\\n/).map((line, index) => (
