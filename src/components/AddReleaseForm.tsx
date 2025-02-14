@@ -13,7 +13,6 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
   const [formData, setFormData] = useState({
     title: '',
     type: '',
-    genre: '',
     releaseDate: '',
     description: '',
     thumbnail: '',
@@ -267,16 +266,6 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
                 onChange={e => setFormData({ ...formData, featured: e.target.checked ? 'true' : '' })}
               />
             </label>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Genre:</label>
-            <input
-              type="text"
-              value={formData.genre}
-              onChange={e => setFormData({ ...formData, genre: e.target.value })}
-              placeholder="Enter genre"
-            />
           </div>
 
           <div className={styles.formGroup}>

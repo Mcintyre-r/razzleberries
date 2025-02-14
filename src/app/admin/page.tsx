@@ -133,7 +133,6 @@ export default function AdminPage() {
               id: '',
               title: '',
               type: [],
-              genre: '',
               releaseDate: '',
               description: '',
               thumbnail: '',

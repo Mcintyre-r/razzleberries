@@ -28,7 +28,7 @@ interface AdminTableProps {
   };
 }
 
-type SortField = 'id' | 'title' | 'type' | 'genre' | 'releaseDate' | 'price' | 'averageRating' | 'totalRatings' | 'featured';
+type SortField = 'id' | 'title' | 'type' | 'releaseDate' | 'price' | 'averageRating' | 'totalRatings' | 'featured';
 type SortDirection = 'asc' | 'desc' | null;
 
 interface DeleteConfirmationModalProps {
@@ -141,7 +141,6 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
         project.id.toLowerCase().includes(searchTerm) ||
         project.title.toLowerCase().includes(searchTerm) ||
         project.type.toLowerCase().includes(searchTerm) ||
-        (project.genre || '').toLowerCase().includes(searchTerm) ||
         project.tags.some(tag => tag.toLowerCase().includes(searchTerm));
       
       if (!matchesSearch) return false;
@@ -262,9 +261,6 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
             <th onClick={() => handleSort('type')} className={styles.sortableHeader}>
               Type {getSortIcon('type')}
             </th>
-            <th onClick={() => handleSort('genre')} className={styles.sortableHeader}>
-              Genre {getSortIcon('genre')}
-            </th>
             <th onClick={() => handleSort('releaseDate')} className={styles.sortableHeader}>
               Release Date {getSortIcon('releaseDate')}
             </th>
@@ -294,8 +290,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
                 <>
                   <td>{project.id}</td>
                   <td>{project.title}</td>
-                  <td>{project.type}</td>
-                  <td>{project.genre || '-'}</td>
+                  <td>{project.type}</td
                   <td>{formatDisplayDate(project.releaseDate)}</td>
                   <td>
                     <a 
