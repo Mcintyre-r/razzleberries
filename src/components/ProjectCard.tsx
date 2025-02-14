@@ -10,7 +10,7 @@ interface ProjectCardProps {
     tags: string[];
     price?: string;
     averageRating?: string;
-    type: string;
+    type: string[];
   };
   onClick: () => void;
 }
@@ -50,7 +50,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         .slice(0, 4) 
     : [];
   const remainingTags = hasTags ? project.tags.filter(tag => tag && tag.trim() !== '').length - 4 : 0;
-
+  const contentTypes = (project: Project) => {
+    if (Array.isArray(project.type)) {
+      return project.type.join(' • ');
+    }
+    return project.type;
+  };
   return (
     <div className={styles.card} onClick={onClick}>
       <div className={styles.thumbnailWrapper}>
@@ -65,7 +70,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
       <div className={styles.content}>
         <div className={styles.titleSection}>
           <h3 className={styles.title}>{project.title}</h3>
-          <div className={styles.type}>{project.type}</div>
+          <div className={styles.type}>{contentTypes(project)}</div>
         </div>
         <div className={styles.priceRatingContainer}>
           {project.price && (
