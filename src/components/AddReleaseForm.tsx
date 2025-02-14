@@ -12,7 +12,7 @@ interface AddReleaseFormProps {
 export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) {
   const [formData, setFormData] = useState({
     title: '',
-    type: '',
+    type: [] as string[],
     releaseDate: '',
     description: '',
     thumbnail: '',
