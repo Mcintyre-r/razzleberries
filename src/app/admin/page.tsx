@@ -132,7 +132,7 @@ export default function AdminPage() {
             const project: Project = {
               id: '',
               title: '',
-              type: '',
+              type: [],
               genre: '',
               releaseDate: '',
               description: '',
