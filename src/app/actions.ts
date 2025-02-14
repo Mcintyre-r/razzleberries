@@ -1,6 +1,5 @@
 import { Project } from '@/types/project';
 import axios, { AxiosError } from 'axios';
-import https from 'https';
 
 export async function getProjects(): Promise<{ projects: Project[] }> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';

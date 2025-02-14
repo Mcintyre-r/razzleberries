@@ -20,7 +20,7 @@ export default function ClientPage({ initialProjects }: ClientPageProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [projects, setProjects] = useState(initialProjects);
+  const [projects] = useState(initialProjects);
 
   useEffect(() => {
     const handleScroll = () => {
