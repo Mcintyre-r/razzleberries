@@ -162,7 +162,7 @@ export default function AdminPage() {
                 project.releaseDate = formatDate(row[index] || '');
               } else {
                 const key = header as keyof Project;
-                if (key === 'tags') {
+                if (key === 'tags' || key === 'type') {
                   project[key] = row[index] ? row[index].split(';') : [];
                 } else {
                   project[key] = row[index] || '';
