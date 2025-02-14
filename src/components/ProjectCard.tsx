@@ -1,17 +1,10 @@
 import Image from 'next/image';
 import styles from './ProjectCard.module.css';
 import { FaStar, FaStarHalf } from 'react-icons/fa';
+import { Project } from '@/types/project';
 
 interface ProjectCardProps {
-  project: {
-    title: string;
-    description: string;
-    thumbnail: string;
-    tags: string[];
-    price?: string;
-    averageRating?: string;
-    type: string[];
-  };
+  project: Project;
   onClick: () => void;
 }
 

@@ -122,8 +122,12 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
             <label>Type</label>
             <select
               required
+              multiple
               value={formData.type}
-              onChange={e => setFormData({ ...formData, type: e.target.value as Project['type'] })}
+              onChange={e => setFormData({ 
+                ...formData, 
+                type: Array.from(e.target.selectedOptions, option => option.value)
+              })}
             >
               {PROJECT_TYPES.map(type => (
                 <option key={type} value={type}>{type}</option>

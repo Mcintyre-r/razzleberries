@@ -140,7 +140,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
       const matchesSearch = 
         project.id.toLowerCase().includes(searchTerm) ||
         project.title.toLowerCase().includes(searchTerm) ||
-        project.type.toLowerCase().includes(searchTerm) ||
+        project.type.some(type => type.toLowerCase().includes(searchTerm)) ||
         project.tags.some(tag => tag.toLowerCase().includes(searchTerm));
       
       if (!matchesSearch) return false;
@@ -290,7 +290,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
                 <>
                   <td>{project.id}</td>
                   <td>{project.title}</td>
-                  <td>{project.type}</td>
+                  <td>{project.type.join(', ')}</td>
                   <td>{formatDisplayDate(project.releaseDate)}</td>
                   <td>
                     <a 
