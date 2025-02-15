@@ -21,15 +21,11 @@ export async function POST(request: Request) {
       );
       console.log('Response:', response.data);
       return NextResponse.json(response.data);
-    } catch (axiosError: any) {
-      console.error('Axios error:', {
-        message: axiosError.message,
-        status: axiosError.response?.status,
-        data: axiosError.response?.data,
-      });
+    } catch (error) {
+      console.error('Axios error:', error)
       return NextResponse.json(
-        { error: `Failed to fetch: ${axiosError.message}` },
-        { status: axiosError.response?.status || 500 }
+        { error: `Failed to fetch` },
+        { status: 500 }
       );
     }
   } catch (error) {

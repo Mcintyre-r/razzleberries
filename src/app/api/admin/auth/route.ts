@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     return NextResponse.json(
-      { error: 'Authentication failed' },
+      { error: error, message: 'Authentication failed' },
       { status: 500 }
     );
   }

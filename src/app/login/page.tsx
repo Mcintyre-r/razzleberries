@@ -24,6 +24,7 @@ export default function LoginPage() {
         setError('Invalid password external');
       }
     } catch (err) {
+      console.log(err)
       setError('Authentication failed');
     }
   };
