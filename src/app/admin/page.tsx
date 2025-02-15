@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import AdminTable from '@/components/AdminTable';
 import AddReleaseForm from '@/components/AddReleaseForm';
-import AdminLogin from '@/components/AdminLogin';
 import { Project } from '@/types/project';
 import AdminDropdown from '@/components/AdminDropdown';
 import { FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 export default function AdminPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const router = useRouter();
   const [filters, setFilters] = useState({
     search: '',
     onlyFeatured: false,
@@ -32,13 +32,30 @@ export default function AdminPage() {
     }
   });
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetch('/api/projects')
-        .then(res => res.json())
-        .then(data => setProjects(data.projects));
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
     }
-  }, [isAuthenticated]);
+  };
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then(res => {
+        if (!res.ok) {
+          if (res.status === 401) {
+            router.push('/login');
+            return;
+          }
+          throw new Error('Failed to fetch projects');
+        }
+        return res.json();
+      })
+      .then(data => data && setProjects(data.projects))
+      .catch(error => console.error('Failed to fetch projects:', error));
+  }, [router]);
 
   const handleExportCSV = () => {
     const headers = ['id', 'title', 'type', 'releaseDate', 'description', 'thumbnail', 'trailer', 'link', 'tags', 'featured'];
@@ -211,11 +228,6 @@ export default function AdminPage() {
 
     reader.readAsText(file);
   };
-
-  if (!isAuthenticated) {
-    return <AdminLogin onLogin={() => setIsAuthenticated(true)} />;
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.headerRow}>
@@ -237,11 +249,14 @@ export default function AdminPage() {
           </button>
         </div>
 
-        <AdminDropdown
-          onAddClick={() => setShowAddForm(true)}
-          onExportClick={handleExportCSV}
-          onFileSelect={handleFileSelect}
-        />
+        <div className={styles.adminControls}>
+          <AdminDropdown
+            onAddClick={() => setShowAddForm(true)}
+            onExportClick={handleExportCSV}
+            onFileSelect={handleFileSelect}
+            onLogout={handleLogout}
+          />
+        </div>
       </div>
 
       {showFilters && (

@@ -17,7 +17,6 @@ export async function GET() {
         'Content-Type': 'application/json'
       }
     });
-    // console.log(response.data)
     return NextResponse.json(response.data);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to load projects: '+error }, { status: 500 });

@@ -20,6 +20,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    ADMIN_PASSWORD_HASH: process.env.APH,
+  }
 }
 
 module.exports = nextConfig 

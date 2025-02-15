@@ -8,9 +8,10 @@ interface AdminDropdownProps {
   onAddClick: () => void;
   onExportClick: () => void;
   onFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onLogout: () => void;
 }
 
-export default function AdminDropdown({ onAddClick, onExportClick, onFileSelect }: AdminDropdownProps) {
+export default function AdminDropdown({ onAddClick, onExportClick, onFileSelect, onLogout }: AdminDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -39,6 +40,9 @@ export default function AdminDropdown({ onAddClick, onExportClick, onFileSelect 
             setIsOpen(false);
           }}>
             Import CSV
+          </button>
+          <button onClick={onLogout}>
+            Logout
           </button>
         </div>
       )}

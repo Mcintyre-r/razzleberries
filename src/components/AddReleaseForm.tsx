@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import styles from './AddReleaseForm.module.css';
 import { Project, PROJECT_TYPES } from '@/types/project';
 import axios, { AxiosError } from 'axios';
-
+import { convertToEmbedLink, capitalizeEachWord } from '@/utility/utils';
 interface AddReleaseFormProps {
   onClose: () => void;
   onAdd: (project: Project) => void;
@@ -32,6 +32,9 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
   const [tagInput, setTagInput] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [existingTags, setExistingTags] = useState<string[]>([]);
+
+  const [typeInput, setTypeInput] = useState('');
+  const [showTypeSuggestions, setShowTypeSuggestions] = useState(false);
 
   useEffect(() => {
     fetch('/api/projects')
@@ -98,13 +101,42 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
       const id = match[1];
       const response = await axios.post('/api/minecraft-details', { id });
       
-      console.log('Fetched data:', response.data);
-      
+      // console.log('Fetched data:', response.data);
+      let img = ""
+      for(const imageObject of response.data.images){
+        if(imageObject.type == "Thumbnail"){
+          img = imageObject.url
+        }
+        console.log(imageObject)
+      }
       setFormData(prevData => ({
         ...prevData,
-        title: response.data.title || '',
-        description: response.data.description || '',
+        title: response.data.title.neutral || '',
+        description: response.data.description.neutral || '',
         link: marketplaceUrl,
+        releaseDate: response.data.startDate || '',
+        price: response.data.displayProperties.price || '',
+        averageRating: response.data.rating.averageRating || '',
+        totalRatings: response.data.rating.totalRatingsCount || '',
+        tags: response.data.tags.map((tag: string) => {
+          if(tag.slice(0,4) == "tag."){
+            const modTag = tag.slice(4).replaceAll("_"," ")
+            const capitalTag = capitalizeEachWord(modTag)
+            return capitalTag
+          }
+          else{return}
+        }).filter((tag: string) => tag !== undefined) || [],
+        trailer: convertToEmbedLink(response.data.displayProperties.videoUrl) || '',
+        type: response.data.tags.map((tag: string) => {
+          const conditions = ["Tag.","Genre.","Subgenre."]
+          if(!conditions.some(el => tag.toLowerCase().includes(el.toLowerCase()))){
+            const modTag = tag.replaceAll("_"," ")
+            const capitalTag = capitalizeEachWord(modTag)
+            return capitalTag
+          }
+          else{return}
+        }).filter((tag: string) => tag !== undefined) || [],
+        thumbnail: img
       }));
 
       setIsInitialScreen(false);
@@ -194,19 +226,74 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
 
           <div className={styles.formGroup}>
             <label>Type</label>
-            <select
-              required
-              multiple
-              value={formData.type}
-              onChange={e => setFormData({ 
-                ...formData, 
-                type: Array.from(e.target.selectedOptions, option => option.value)
-              })}
-            >
-              {PROJECT_TYPES.map(type => (
-                <option key={type} value={type}>{type}</option>
+            <div className={styles.tagInput}>
+              <input
+                type="text"
+                value={typeInput}
+                onChange={e => {
+                  setTypeInput(e.target.value);
+                  setShowTypeSuggestions(true);
+                }}
+                onFocus={() => setShowTypeSuggestions(true)}
+                placeholder="Add a type"
+              />
+              <button 
+                type="button" 
+                onClick={() => {
+                  if (typeInput && !formData.type.includes(typeInput)) {
+                    setFormData({
+                      ...formData,
+                      type: [...formData.type, typeInput]
+                    });
+                    setTypeInput('');
+                  }
+                }}
+                className={styles.addTagButton}
+              >
+                Add
+              </button>
+            </div>
+            {showTypeSuggestions && typeInput && (
+              <div className={styles.tagSuggestions}>
+                {PROJECT_TYPES
+                  .filter(type => 
+                    type.toLowerCase().includes(typeInput.toLowerCase()) && 
+                    !formData.type.includes(type)
+                  )
+                  .map(type => (
+                    <span
+                      key={type}
+                      className={styles.tagSuggestion}
+                      onClick={() => {
+                        setFormData({
+                          ...formData,
+                          type: [...formData.type, type]
+                        });
+                        setTypeInput('');
+                        setShowTypeSuggestions(false);
+                      }}
+                    >
+                      {type}
+                    </span>
+                  ))}
+              </div>
+            )}
+            <div className={styles.selectedTags}>
+              {formData.type.map(type => (
+                <span key={type} className={styles.tag}>
+                  {type}
+                  <span 
+                    className={styles.removeTag}
+                    onClick={() => setFormData({
+                      ...formData,
+                      type: formData.type.filter(t => t !== type)
+                    })}
+                  >
+                    ×
+                  </span>
+                </span>
               ))}
-            </select>
+            </div>
           </div>
 
           <div className={styles.formGroup}>
