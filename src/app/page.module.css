@@ -14,7 +14,7 @@
   height: 100vh;
   width: 100%;
   position: relative;
-  background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.7));
+  background:  #e80570;
   background-size: cover;
   background-position: center;
   display: flex;

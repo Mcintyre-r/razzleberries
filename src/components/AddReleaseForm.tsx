@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import styles from './AddReleaseForm.module.css';
 import { Project, PROJECT_TYPES } from '@/types/project';
+import axios, { AxiosError } from 'axios';
 
 interface AddReleaseFormProps {
   onClose: () => void;
@@ -10,6 +11,9 @@ interface AddReleaseFormProps {
 }
 
 export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) {
+  const [isInitialScreen, setIsInitialScreen] = useState(true);
+  const [marketplaceUrl, setMarketplaceUrl] = useState('');
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     type: [] as string[],
@@ -80,6 +84,49 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
     });
   };
 
+  const handleMarketplaceSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const match = marketplaceUrl.match(/id=([^&]+)/);
+      if (!match) {
+        setError('Invalid marketplace URL. Please ensure it contains an ID.');
+        return;
+      }
+
+      const id = match[1];
+      const response = await axios.post('/api/minecraft-details', { id });
+      
+      console.log('Fetched data:', response.data);
+      
+      setFormData(prevData => ({
+        ...prevData,
+        title: response.data.title || '',
+        description: response.data.description || '',
+        link: marketplaceUrl,
+      }));
+
+      setIsInitialScreen(false);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response) {
+          // Server responded with error status
+          setError(`Server error: ${err.response.status} - ${err.response.data.message || 'Unknown error'}`);
+        } else if (err.request) {
+          // Request made but no response
+          setError('No response from server. Please check your connection.');
+        } else {
+          // Error setting up request
+          setError(`Request error: ${err.message}`);
+        }
+      } else {
+        setError('An unexpected error occurred.');
+      }
+      console.error('Error:', err);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateUrls()) {
@@ -102,6 +149,33 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
       console.error('Error adding project:', error);
     }
   };
+
+  if (isInitialScreen) {
+    return (
+      <div className={styles.modal} onClick={onClose}>
+        <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+          <h2>Add New Release</h2>
+          <form onSubmit={handleMarketplaceSubmit}>
+            <div className={styles.formGroup}>
+              <label>Minecraft Marketplace URL</label>
+              <input
+                type="url"
+                value={marketplaceUrl}
+                onChange={e => setMarketplaceUrl(e.target.value)}
+                placeholder="https://www.minecraft.net/en-us/marketplace/pdp?id=..."
+                required
+              />
+              {error && <div className={styles.error}>{error}</div>}
+            </div>
+            <div className={styles.buttonGroup}>
+              <button type="submit" className={styles.submitButton}>Continue</button>
+              <button type="button" onClick={onClose} className={styles.cancelButton}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.modal} onClick={onClose}>
