@@ -426,6 +426,10 @@
 }
 
 @media (max-width: 768px) {
+  .titleBar {
+    height: 100%;
+    width: 100%;
+  } 
   .latestReleasesGrid {
     grid-template-columns: 1fr;
     max-width: 350px;

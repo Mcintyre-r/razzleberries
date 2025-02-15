@@ -88,7 +88,11 @@ export default function FeaturedContent() {
               )}
               <div className={`${styles.slideOverlay} ${isHovered ? styles.visible : ''}`}>
                 <h3 className={styles.slideTitle}>{project.title}</h3>
-                <p className={styles.slideDescription}>{project.description}</p>
+                <p className={styles.slideDescription}>
+                  {project.description.split(/\\r\\n|\\n/).map((line, index) => (
+                  line ? <span key={index}>{line}<br/></span> : <br key={index}/>
+              ))}
+                </p>
                 <div className={styles.buttonGroup}>
                   <Link
                     href={project.link}

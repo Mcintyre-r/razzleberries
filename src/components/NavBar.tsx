@@ -23,38 +23,40 @@ export default function NavBar() {
   const isHomePage = pathname === '/';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Handle initial mount and mobile detection
   useEffect(() => {
     setMounted(true);
-    
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => {
+      // Use visualViewport if available, fallback to documentElement.clientWidth
+      const width = window.visualViewport 
+        ? window.visualViewport.width 
+        : document.documentElement.clientWidth;
+      
+      setIsMobile(width <= 430);
     };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
     
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile || !isHomePage) {
+      setScrollProgress(1);
+      return;
+    }
+
     const handleScroll = () => {
-      if (!isHomePage || isMobile) return;
       const scrollPercent = Math.min(window.scrollY / 20, 1);
       setScrollProgress(scrollPercent);
     };
 
-    if (!isHomePage || isMobile) {
-      setScrollProgress(1);
-    } else {
-      handleScroll();
-      window.addEventListener('scroll', handleScroll);
-    }
+    handleScroll(); // Initial check
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile, isHomePage]);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, [isHomePage, isMobile]);
-
-  if (!mounted) {
-    return <nav className={styles.navbar} style={{ height: '70px' }} />;
-  }
+  if (!mounted) return <nav className={styles.navbar} style={{ height: '70px' }} />;
 
   const socialLinks = [
     { icon: FaDiscord, href: 'https://discord.gg/zPb4TNg4pM', label: 'Discord' },
@@ -66,10 +68,15 @@ export default function NavBar() {
 
   const expandedLogoSize = 800;
   const collapsedLogoSize = 150;
-  const logoSize = isMobile ? 200 : expandedLogoSize - ((expandedLogoSize - collapsedLogoSize) * scrollProgress);
+  const mobileLogoSize = 200;
+  
+  const logoSize = isMobile 
+    ? mobileLogoSize 
+    : isHomePage 
+      ? expandedLogoSize - ((expandedLogoSize - collapsedLogoSize) * scrollProgress)
+      : collapsedLogoSize;
   const navHeight = isMobile ? 70 : 100 - (30 * scrollProgress);
   const isCollapsed = scrollProgress === 1;
-
   return (
     <nav 
       className={styles.navbar}
