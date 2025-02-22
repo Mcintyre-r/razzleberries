@@ -1,8 +1,160 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--header-height));
+  padding: 15rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4rem;
+
+}
+
+.header {
+  text-align: center;
+  max-width: 800px;
+}
+
+.header h1 {
+  color: #e80570;
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.intro {
+  font-size: 2rem;
+  color: #000000;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.buttonContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  min-height: calc(100vh - 70px);
-  background: white;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2.5rem;
+  border-radius: 1.5rem;
+  color: #e80570;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  text-align: center;
+  border: 1px solid #e80570;
+  position: relative;
+  overflow: hidden;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.button::before {
+  transition: opacity 0.4s ease;
+}
+
+.button:hover {
+  color: #ffffff;
+  background-color: #e80570;
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -20px rgba(var(--primary-rgb), 0.3);
+}
+
+.button:hover::before {
+  opacity: 1;
+}
+
+
+
+.button > span:first-child {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  color: #000000;
+}
+
+
+/* .buttonDescription {
+  font-size: 1.1rem;
+  color: #000000;
+  line-height: 1.5; 
+  max-width: 280px; 
+} */
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .container {
+    padding: 2.5rem 2rem;
+    gap: 3rem;
+  }
+
+  .header h1 {
+    font-size: 3.5rem;
+  }
+
+  .button {
+    padding: 2.5rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1.5rem;
+    gap: 2.5rem;
+  }
+
+  .header h1 {
+    font-size: 2.75rem;
+  }
+
+  .intro {
+    font-size: 1.2rem;
+  }
+
+  .buttonContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .button {
+    padding: 2rem;
+  }
+
+  .button > span:first-child {
+    font-size: 1.3rem;
+  }
+
+  .buttonDescription {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .header h1 {
+    font-size: 2.25rem;
+  }
+
+  .intro {
+    font-size: 1.1rem;
+  }
+
+  .button {
+    padding: 1.75rem 1.5rem;
+  }
 }
 
 .column {
@@ -129,32 +281,6 @@
   min-height: 100vh;
   padding: 20px;
   background-color: #f5f5f5;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding-top: 20px;
-}
-
-.header h1 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.intro {
-  font-size: 1.1rem;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 30px;
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0 10px;
 }
 
 .mobileButton {
