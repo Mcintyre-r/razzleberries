@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     default: 'Razzleberries AB | Official Minecraft Marketplace Partner',
     template: '%s | Razzleberries AB'
   },
-  description: 'Razzleberries AB is a founding partner and industry leader on the Minecraft Marketplace, creating high-quality content with over 2.3 million sales and 115,000+ 5-star reviews.',
+  description: 'Razzleberries AB is a founding partner and industry leader on the Minecraft Marketplace, creating high-quality content with over 3 million sales.',
   keywords: ['Minecraft', 'Marketplace', 'Razzleberries', 'Gaming', 'Add-ons', 'Maps', 'Skins', 'Content Creator'],
   authors: [{ name: 'Razzleberries AB' }],
   creator: 'Razzleberries AB',
@@ -23,13 +23,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://razzleberries.com',
+    url: 'https://razzleberri.es',
     siteName: 'Razzleberries AB',
     title: 'Razzleberries AB | Official Minecraft Marketplace Partner',
-    description: 'Leading Minecraft Marketplace content creator with over 2.3 million sales and 115,000+ 5-star reviews.',
+    description: 'Leading Minecraft Marketplace content creator with over 3 million sales.',
     images: [
       {
-        url: '/og-image.jpg', // You'll need to create this image
+        url: '/RB_Berry_White.png', // You'll need to create this image
         width: 1200,
         height: 630,
         alt: 'Razzleberries AB'
