@@ -1,24 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 
 export default function ContactPage() {
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.visualViewport 
-        ? window.visualViewport.width 
-        : document.documentElement.clientWidth;
-      setIsMobile(width <= 430);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     const width = window.visualViewport 
+  //       ? window.visualViewport.width 
+  //       : document.documentElement.clientWidth;
+  //     setIsMobile(width <= 430);
+  //   };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  //   handleResize();
+  //   window.addEventListener('resize', handleResize);
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
 
   // We can now use the same layout for both mobile and desktop
   return (
