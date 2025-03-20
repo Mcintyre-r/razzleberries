@@ -9,16 +9,23 @@ export async function getProjects(): Promise<{ projects: Project[] }> {
     });
 
     // During build time, use the JSON_URL directly
-
     const response = await axios.get(process.env.JSON_URL || '', {
       httpsAgent: agent,
       headers: {
         'Content-Type': 'application/json',
       }
     });
-    return response.data;
 
+    console.log('Response data structure:', JSON.stringify(response.data, null, 2));
 
+    // Ensure we return the correct data structure
+    if (!response.data || !response.data.projects) {
+      throw new Error('Invalid data structure received from API');
+    }
+
+    return {
+      projects: response.data.projects
+    };
 
     // // For client-side or development, use the API route
     // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
