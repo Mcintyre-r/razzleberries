@@ -7,7 +7,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import styles from './FeaturedContent.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import projectsData from '../data/projects.json';
+import { Project }  from '@/types/project'
 
 // Import Swiper styles
 import 'swiper/css';
@@ -15,12 +15,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-export default function FeaturedContent() {
+export default function FeaturedContent({ projects }: { projects: Project[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const swiperRef = useRef<SwiperType>(null);
 
-  const featuredProjects = projectsData.projects.filter(project => project.featured);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -60,7 +59,7 @@ export default function FeaturedContent() {
         }}
         className={styles.featuredSwiper}
       >
-        {featuredProjects.map((project, index) => (
+        {projects.map((project, index) => (
           <SwiperSlide 
             key={project.id}
             onMouseEnter={handleMouseEnter}

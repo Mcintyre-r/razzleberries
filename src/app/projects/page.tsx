@@ -1,15 +1,24 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import styles from './page.module.css';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import FilterSidebar from '@/components/FilterSidebar';
-import projects from '@/data/projects.json';
+import { getProjects } from '../actions';
 import { FaFilter } from 'react-icons/fa';
 import { Project } from '@/types/project';
+
+// Configure the page for dynamic rendering
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 type SortField = 'releaseDate' | 'title' | 'price' | 'averageRating';
 type SortDirection = 'asc' | 'desc';
+
+interface ProjectsData {
+  projects: Project[];
+}
 
 export default function ProjectsPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,47 +28,61 @@ export default function ProjectsPage() {
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [projects, setProjects] = useState<ProjectsData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Get unique tags and types from all addons
-  const allTags = Array.from(
-    new Set(projects.projects.flatMap(projects => projects.tags))
-  ).sort();
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoading(true);
+        const data = await getProjects();
+        setProjects(data);
+      } catch (err) {
+        setError('Failed to fetch projects');
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const allTypes = Array.from(
-    new Set(
-      projects.projects.flatMap(project => 
-        Array.isArray(project.type) ? project.type : [project.type]
+    fetchProjects();
+  }, []);
+
+  // Get unique tags and types from all projects
+  const allTags = useMemo(() => {
+    if (!projects) return [];
+    return Array.from(
+      new Set(projects.projects.flatMap(project => project.tags))
+    ).sort();
+  }, [projects]);
+
+  const allTypes = useMemo(() => {
+    if (!projects) return [];
+    return Array.from(
+      new Set(
+        projects.projects.flatMap(project => 
+          Array.isArray(project.type) ? project.type : [project.type]
+        )
       )
-    )
-  ).sort();
+    ).sort();
+  }, [projects]);
 
-  // Sort and filter addons
-  const filteredProjects = projects.projects
-    .filter(projects => {
-      const matchesSearch = projects.title.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesTags = selectedTags.length === 0 || 
-        selectedTags.every(tag => projects.tags.includes(tag));
-      const matchesTypes = selectedTypes.length === 0 ||
-        (Array.isArray(projects.type)
-          ? selectedTypes.some(type => projects.type.includes(type))
-          : selectedTypes.includes(projects.type));
-      return matchesSearch && matchesTags && matchesTypes;
-    })
-    .sort((a, b) => {
-      if (sortBy === 'releaseDate') {
-        const dateA = new Date(a.releaseDate);
-        const dateB = new Date(b.releaseDate);
-        return sortDirection === 'desc' ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime();
-      }
-      switch (sortBy) {
-        // case 'title-asc':
-        //   return a.title.localeCompare(b.title);
-        // case 'title-desc':
-        //   return b.title.localeCompare(a.title);
-        default:
-          return 0;
-      }
-    });
+  // Sort and filter projects
+  const filteredProjects = useMemo(() => {
+    if (!projects) return [];
+    return projects.projects
+      .filter(project => {
+        const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesTags = selectedTags.length === 0 || 
+          selectedTags.every(tag => project.tags.includes(tag));
+        const matchesTypes = selectedTypes.length === 0 ||
+          (Array.isArray(project.type)
+            ? selectedTypes.some(type => project.type.includes(type))
+            : selectedTypes.includes(project.type));
+        return matchesSearch && matchesTags && matchesTypes;
+      });
+  }, [projects, searchTerm, selectedTags, selectedTypes]);
 
   const sortedProjects = useMemo(() => {
     return [...filteredProjects].sort((a, b) => {
@@ -97,6 +120,14 @@ export default function ProjectsPage() {
     setSortBy('releaseDate');
     setSortDirection('desc');
   };
+
+  if (isLoading) {
+    return <div className={styles.container}>Loading...</div>;
+  }
+
+  if (error || !projects) {
+    return <div className={styles.container}>Error: {error || 'Failed to load projects'}</div>;
+  }
 
   return (
     <div className={styles.container}>

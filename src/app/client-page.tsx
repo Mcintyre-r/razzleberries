@@ -98,7 +98,7 @@ export default function ClientPage({ initialProjects }: ClientPageProps) {
 
       <section className={styles.featuredSection} aria-label="Featured Content">
         <h2 className={styles.sectionTitle}>FEATURED CONTENT</h2>
-        <FeaturedContent />
+        <FeaturedContent projects={projects.projects.filter(project => project.featured)}/>
       </section>
 
       <section className={styles.newsSection} aria-label="Latest Releases">
