@@ -7,7 +7,7 @@ export async function getProjects(): Promise<{ projects: Project[] }> {
     const agent = new https.Agent({
       rejectUnauthorized: false,
     });
-
+    console.log(process.env.JSON_URL)
     // During build time, use the JSON_URL directly
     const response = await axios.get(process.env.JSON_URL || '', {
       httpsAgent: agent,
