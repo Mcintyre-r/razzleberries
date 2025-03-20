@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 export async function GET() {
-  if (!process.env.JSON_URL) {
+  if (!process.env.NEXT_PUBLIC_JSON_URL) {
     return NextResponse.json(
       { error: 'Missing environment variables' }, 
       { status: 500 }
@@ -18,7 +18,7 @@ export async function GET() {
     const agent = new https.Agent({
       rejectUnauthorized: false,
     });
-    const response = await axios.get(process.env.JSON_URL, {
+    const response = await axios.get(process.env.NEXT_PUBLIC_JSON_URL, {
       httpsAgent: agent,
       headers: {
         'Content-Type': 'application/json'
