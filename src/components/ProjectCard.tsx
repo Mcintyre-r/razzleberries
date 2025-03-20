@@ -94,7 +94,9 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
           </div>
         ) : (
           <p className={styles.description}>
-            {project.description.split('$$')[0]}
+              {project.description.split(/\\r\\n|\\n/).map((line, index) => (
+                line ? <span key={index}>{line}<br/></span> : <br key={index}/>
+              ))}
           </p>
         )}
       </div>
