@@ -80,7 +80,7 @@ export default function ClientPage({ initialProjects }: ClientPageProps) {
               Razzleberries is a founding partner and industry leader on the Minecraft Marketplace. We are a community of talented programmers, builders, and artists that have collectively acquired over a quarter billion mod downloads, 2.3 million Marketplace sales, and countless builds, textures and models.
             </p>
             <p>
-              Responsible for just under 5% of all content on the marketplace, we have earned well over 115 thousand 5-star reviews spanning more than 260 pieces of unique and innovative content while maintaining an average rating of nearly 4.4 stars.
+              We have earned well over 115 thousand 5-star reviews spanning more than 260 pieces of unique and innovative content while maintaining an average rating of nearly 4.4 stars.
             </p>
             <p>
               Over many years, our team has left its mark on Minecraft in ways no other team has. Whether it be through official collaborations with Mojang and Microsoft, additions to and development of Minecraft itself, or large scale advertising and showcasing campaigns – Razzleberries continues to provide a track record of creativity and innovation on a truly professional scale.
