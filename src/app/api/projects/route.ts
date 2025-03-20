@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import https from 'https';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { Project } from '@/types/project';
@@ -11,9 +12,12 @@ export async function GET() {
   }
 
   try {
+    const agent = new https.Agent({
+      rejectUnauthorized: false,
+    });
     const response = await axios.get(process.env.JSON_URL, {
+      httpsAgent: agent,
       headers: {
-        'X-SILO-KEY': process.env.JSON_KEY,
         'Content-Type': 'application/json'
       }
     });
