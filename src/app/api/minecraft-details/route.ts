@@ -19,7 +19,6 @@ export async function POST(request: Request) {
           }
         }
       );
-      console.log('Response:', response.data);
       return NextResponse.json(response.data);
     } catch (error) {
       console.error('Axios error:', error)

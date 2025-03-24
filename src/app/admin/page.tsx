@@ -91,6 +91,20 @@ export default function AdminPage() {
       return dateString; // Return original if parsing fails
     }
   };
+  const handleExportJson = () => {
+
+    const projectHolder = { projects: [] as Project[] }
+    for(const project of projects){
+      console.log(project)
+      projectHolder.projects.push(project)
+    }
+    const jsonContent = JSON.stringify(projectHolder)
+    const blob = new Blob([jsonContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'projects.json';
+    link.click();
+  }
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -252,6 +266,7 @@ export default function AdminPage() {
         <div className={styles.adminControls}>
           <AdminDropdown
             onAddClick={() => setShowAddForm(true)}
+            onJsonClick={handleExportJson}
             onExportClick={handleExportCSV}
             onFileSelect={handleFileSelect}
             onLogout={handleLogout}

@@ -10,6 +10,7 @@ import ProjectModal from '@/components/ProjectModal';
 import Image from 'next/image';
 import { Project } from '@/types/project';
 
+
 interface ClientPageProps {
   initialProjects: {
     projects: Project[];

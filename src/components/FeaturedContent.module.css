@@ -1,6 +1,6 @@
 .carouselContainer {
   width: 100%;
-  height: 85vh;
+  height: 45vh;
   position: relative;
   background: #fff;
   padding: 0 2rem; /* Restore horizontal padding */
@@ -15,12 +15,12 @@
   height: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0 10%; /* Restore horizontal padding */
+  padding: 0; /* Restore horizontal padding */
 }
 
 .slideContent {
   width: 80%;
-  height: 80vh; /* Adjusted to be closer to container height */
+  height: 100%; /* Adjusted to be closer to container height */
   position: relative;
   margin: 0 auto;
   pointer-events: none; /* Disable hover on the container */
@@ -218,8 +218,12 @@
 
   /* Expand height when overlay is visible */
   .slideContent:has(.slideOverlay.visible) {
-    padding-bottom: 100%; /* Expand to square aspect ratio */
+    .buttonGroup{
+      flex-direction: row;
+    }
   }
+
+
 
   .slideOverlay {
     padding: 1rem;

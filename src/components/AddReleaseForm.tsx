@@ -16,6 +16,7 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     title: '',
+    id: "",
     type: [] as string[],
     releaseDate: '',
     description: '',
@@ -101,7 +102,7 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
       const id = match[1];
       const response = await axios.post('/api/minecraft-details', { id });
       
-      // console.log('Fetched data:', response.data);
+      console.log('Fetched data:', response.data);
       let img = ""
       for(const imageObject of response.data.images){
         if(imageObject.type == "Thumbnail"){
@@ -112,6 +113,7 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
       setFormData(prevData => ({
         ...prevData,
         title: response.data.title.neutral || '',
+        id: response.data.id|| '',
         description: response.data.description.neutral || '',
         link: marketplaceUrl,
         releaseDate: response.data.startDate || '',
@@ -167,16 +169,17 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
     }
 
     try {
-      const response = await fetch('/api/projects', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      onAdd(formData)
+      // const response = await fetch('/api/projects', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(formData),
+      // });
 
-      if (response.ok) {
-        const newProject = await response.json();
-        onAdd(newProject);
-      }
+      // if (response.ok) {
+      //   const newProject = await response.json();
+      //   onAdd(newProject);
+      // }
     } catch (error) {
       console.error('Error adding project:', error);
     }
@@ -221,6 +224,15 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
               type="text"
               value={formData.title}
               onChange={e => setFormData({ ...formData, title: e.target.value })}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Id</label>
+            <input
+              required
+              type="text"
+              value={formData.id}
+              onChange={e => setFormData({ ...formData, id: e.target.value })}
             />
           </div>
 
@@ -339,12 +351,24 @@ export default function AddReleaseForm({ onClose, onAdd }: AddReleaseFormProps) 
 
           <div className={styles.formGroup}>
             <label>Trailer URL (YouTube embed URL)</label>
-            <input
-              type="url"
-              value={formData.trailer}
-              onChange={e => setFormData({ ...formData, trailer: e.target.value })}
-              placeholder="https://www.youtube.com/embed/..."
-            />
+            <div className={styles.urlInputGroup}>
+              <input
+                type="url"
+                value={formData.trailer}
+                onChange={e => setFormData({ ...formData, trailer: e.target.value })}
+                placeholder="https://www.youtube.com/embed/..."
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const embedUrl = convertToEmbedLink(formData.trailer);
+                  setFormData({ ...formData, trailer: embedUrl });
+                }}
+                className={styles.convertButton}
+              >
+                Convert
+              </button>
+            </div>
           </div>
 
           <div className={styles.formGroup}>

@@ -7,11 +7,12 @@ import { FaEllipsisV } from 'react-icons/fa';
 interface AdminDropdownProps {
   onAddClick: () => void;
   onExportClick: () => void;
+  onJsonClick: () => void;
   onFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onLogout: () => void;
 }
 
-export default function AdminDropdown({ onAddClick, onExportClick, onFileSelect, onLogout }: AdminDropdownProps) {
+export default function AdminDropdown({ onAddClick, onJsonClick, onExportClick, onFileSelect, onLogout }: AdminDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -28,6 +29,12 @@ export default function AdminDropdown({ onAddClick, onExportClick, onFileSelect,
             setIsOpen(false);
           }}>
             Add New Release
+          </button>
+          <button onClick={() => {
+            onJsonClick();
+            setIsOpen(false);
+          }}>
+            Export Json
           </button>
           <button onClick={() => {
             onExportClick();
