@@ -42,7 +42,7 @@ const DeleteConfirmationModal = ({ onClose, onConfirm }: DeleteConfirmationModal
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'hello') {
+    if (password === 'toctoctoc') {
       onConfirm();
       onClose();
     } else {
@@ -110,7 +110,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
   const [selectedDescription, setSelectedDescription] = useState('');
   const [sortField, setSortField] = useState<SortField>('id');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
-  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
 
   const handleSort = (field: SortField) => {
@@ -209,19 +209,19 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
 
   const handleSave = async (updatedProject: Project) => {
     try {
-      const response = await fetch('/api/projects', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedProject),
-      });
+      // const response = await fetch('/api/projects', {
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(updatedProject),
+      // });
 
-      if (response.ok) {
+      // if (response.ok) {
         const updatedProjects = projects.map(p => 
           p.id === updatedProject.id ? updatedProject : p
         );
         onUpdate(updatedProjects);
         setEditingProject(null);
-      }
+      // }
     } catch (error) {
       console.error('Error updating project:', error);
     }
@@ -232,16 +232,12 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
     setShowDescriptionModal(true);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`/api/projects/${id}`, {
-        method: 'DELETE',
-      });
 
-      if (response.ok) {
-        const updatedProjects = projects.filter(p => p.id !== id.toString());
+        const updatedProjects = projects.filter(p => p.id !== id);
         onUpdate(updatedProjects);
-      }
+
     } catch (error) {
       console.error('Error deleting project:', error);
     }
@@ -335,7 +331,7 @@ export default function AdminTable({ projects, onUpdate, filters }: AdminTablePr
                       <FaEdit />
                     </button>
                     <button 
-                      onClick={() => setDeleteId(parseInt(project.id))} 
+                      onClick={() => setDeleteId(project.id)} 
                       className={`${styles.iconButton} ${styles.deleteIcon}`}
                       title="Delete"
                     >

@@ -16,7 +16,7 @@ export interface Project {
 
 export const PROJECT_TYPES = [
   'Adventure World',
-  'Add-on',
+  'Addon',
   'Skinpack',
   'Persona',
   'Mini-Game World',
