@@ -1,15 +1,15 @@
 import { Project } from '@/types/project';
-import axios, { AxiosError } from 'axios';
-import https from 'https';
+// import axios, { AxiosError } from 'axios';
+// import https from 'https';
 import { get } from '@vercel/blob';
 
 
-export async function getProjects(): Promise<{ projects: Project[] }> {
-  try {
-    const agent = new https.Agent({
-      rejectUnauthorized: false,
-    });
-    console.log("jsonURL: " ,process.env.NEXT_PUBLIC_JSON_URL)
+export async function getProjects()/*: Promise<{ projects: Project[] }>*/ {
+  // try {
+    // const agent = new https.Agent({
+    //   rejectUnauthorized: false,
+    // });
+    // console.log("jsonURL: " ,process.env.NEXT_PUBLIC_JSON_URL)
     // During build time, use the JSON_URL directly
     // const response = await axios.get(process.env.NEXT_PUBLIC_JSON_URL || '', {
     //   httpsAgent: agent,
@@ -42,15 +42,15 @@ export async function getProjects(): Promise<{ projects: Project[] }> {
     //     'Content-Type': 'application/json',
     //   }
     // });
-
+    return response;
     // return response.data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.error('Failed to fetch projects:', error.message);
-      throw new Error(`Failed to fetch projects: ${error.message}`);
-    }
-    console.error('Unexpected error:', error);
-    throw new Error('An unexpected error occurred while fetching projects');
-  }
+  // } catch (error) {
+  //   if (error instanceof AxiosError) {
+  //     console.error('Failed to fetch projects:', error.message);
+  //     throw new Error(`Failed to fetch projects: ${error.message}`);
+  //   }
+  //   console.error('Unexpected error:', error);
+  //   throw new Error('An unexpected error occurred while fetching projects');
+  // }
 }
 
