@@ -1,6 +1,8 @@
 import { Project } from '@/types/project';
 import axios, { AxiosError } from 'axios';
 import https from 'https';
+import { get } from '@vercel/blob';
+
 
 export async function getProjects(): Promise<{ projects: Project[] }> {
   try {
@@ -9,23 +11,24 @@ export async function getProjects(): Promise<{ projects: Project[] }> {
     });
     console.log("jsonURL: " ,process.env.NEXT_PUBLIC_JSON_URL)
     // During build time, use the JSON_URL directly
-    const response = await axios.get(process.env.NEXT_PUBLIC_JSON_URL || '', {
-      httpsAgent: agent,
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+    // const response = await axios.get(process.env.NEXT_PUBLIC_JSON_URL || '', {
+    //   httpsAgent: agent,
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   }
+    // });
+    const response = await get("projects.json", { access: 'private' });
+    console.log(response)
+    // console.log('Response data structure:', JSON.stringify(response.data, null, 2));
 
-    console.log('Response data structure:', JSON.stringify(response.data, null, 2));
+    // // Ensure we return the correct data structure
+    // if (!response.data || !response.data.projects) {
+    //   throw new Error('Invalid data structure received from API');
+    // }
 
-    // Ensure we return the correct data structure
-    if (!response.data || !response.data.projects) {
-      throw new Error('Invalid data structure received from API');
-    }
-
-    return {
-      projects: response.data.projects
-    };
+    // return {
+    //   projects: response.data.projects
+    // };
 
     // // For client-side or development, use the API route
     // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
