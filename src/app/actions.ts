@@ -18,7 +18,7 @@ export async function getProjects()/*: Promise<{ projects: Project[] }>*/ {
     //   }
     // });
     const response = await get("projects.json", { access: 'private' });
-    console.log(response)
+    console.log("response: ", response)
     // console.log('Response data structure:', JSON.stringify(response.data, null, 2));
 
     // // Ensure we return the correct data structure
